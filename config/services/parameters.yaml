@@ -1,0 +1,3 @@
+parameters:
+    app.password_cost: '%env(PASSWORD_COST)%'
+    app.password_pass_phrase: '%env(PASSWORD_PASS_PHRASE)%'

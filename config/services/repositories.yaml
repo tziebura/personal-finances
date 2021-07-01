@@ -1,0 +1,12 @@
+services:
+
+    # ALIASES
+    app.user_repository: '@App\Repository\UserRepository'
+    app.user_balance_repository: '@App\Repository\UserBalanceRepository'
+
+    # SERVICE DEFINITIONS
+    App\Repository\UserRepository:
+        arguments: [ '@doctrine.orm.entity_manager' ]
+
+    App\Repository\UserBalanceRepository:
+        arguments: [ '@doctrine.orm.entity_manager' ]
