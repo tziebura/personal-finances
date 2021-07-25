@@ -1,6 +1,11 @@
 imports:
     - { resource: services/repositories.yaml }
     - { resource: services/parameters.yaml }
+    - { resource: services/security.yaml }
+    - { resource: services/event-subscribers.yaml }
+    - { resource: services/controllers.yaml }
+    - { resource: services/validators.yaml }
+    - { resource: services/cli.yaml }
 
 services:
 
@@ -8,6 +13,7 @@ services:
     app.user_factory: '@App\Service\UserFactory'
     app.complex_user_password_encoder: '@App\Service\ComplexUserPasswordEncoder'
     app.user_registration_service: '@App\Service\UserRegistrationService'
+    app.user_authentication_service: '@App\Service\UserAuthenticationService'
 
     # SERVICE DEFINITIONS
     App\Service\UserFactory:
@@ -17,4 +23,7 @@ services:
         arguments: [ '%app.password_cost%', '%app.password_pass_phrase%' ]
 
     App\Service\UserRegistrationService:
-        arguments: [ '@app.user_repository', '@app.user_factory' ]
+        arguments: [ '@app.user_repository', '@app.user_factory', '@event_dispatcher' ]
+
+    App\Service\UserAuthenticationService:
+        arguments: [ '@app.complex_user_password_encoder' ]

@@ -7,8 +7,9 @@ namespace App\Entity;
 use App\Enum\UserRole;
 use DateTimeImmutable;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
-class User
+class User implements UserInterface
 {
     use Timestamps;
     use Toggleable;
@@ -50,5 +51,22 @@ class User
     public function getRoles(): array
     {
         return $this->roles;
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials() {}
+
+    public function getUsername(): string
+    {
+        return $this->getEmail();
+    }
+
+    public function getUserIdentifier(): string
+    {
+        return $this->email;
     }
 }

@@ -1,0 +1,8 @@
+parameters:
+    app.parameters.create_user_command_name: 'app:user:create'
+
+services:
+    App\Command\CreateUserCommand:
+        arguments: [ '@app.user_registration_service', '@form.factory', '%app.parameters.create_user_command_name%' ]
+        tags:
+            - { name: 'console.command', command: '%app.parameters.create_user_command_name%' }

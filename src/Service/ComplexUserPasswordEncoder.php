@@ -24,4 +24,12 @@ class ComplexUserPasswordEncoder implements UserPasswordEncoderInterface
             'cost' => $this->cost
         ]);
     }
+
+    public function verify(string $password, string $hash): bool
+    {
+        $password = $this->passPhrase . $password;
+        $password = base64_encode($password);
+
+        return password_verify($password, $hash);
+    }
 }

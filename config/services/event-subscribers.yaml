@@ -1,0 +1,7 @@
+services:
+
+    # SERVICE DEFINITIONS
+    App\EventSubscriber\UserRegisteredEventSubscriber:
+        arguments:
+            - '@app.user_repository'
+            - '@app.user_balance_repository'

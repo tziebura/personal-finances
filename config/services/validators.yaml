@@ -1,0 +1,4 @@
+services:
+    App\Validator\UniqueUsernameValidator:
+        arguments: [ '@app.user_repository' ]
+        tags: [ 'validator.constraint_validator' ]

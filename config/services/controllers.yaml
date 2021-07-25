@@ -1,0 +1,12 @@
+services:
+
+    # SERVICE DEFINITIONS
+    App\Controller\SecurityController:
+        calls:
+            - setContainer: [ '@service_container' ]
+        tags: [ 'controller.service_arguments' ]
+
+    App\Controller\RegistrationController:
+        calls:
+            -   setContainer: [ '@service_container' ]
+        tags: [ 'controller.service_arguments' ]

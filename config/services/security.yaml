@@ -1,0 +1,9 @@
+services:
+    # ALIASES
+    app.username_and_password_authenticator: '@App\Security\UsernameAndPasswordAuthenticator'
+
+    # SERVICE DEFINITIONS
+    App\Security\UsernameAndPasswordAuthenticator:
+        arguments:
+            - '@router'
+            - '@app.user_authentication_service'

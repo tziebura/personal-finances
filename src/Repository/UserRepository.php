@@ -6,8 +6,12 @@ namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Exception\UserNotFoundException;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
 
-class UserRepository implements UserRepositoryInterface
+
+class UserRepository implements UserRepositoryInterface, UserProviderInterface
 {
     private EntityManagerInterface $em;
 
@@ -34,4 +38,40 @@ class UserRepository implements UserRepositoryInterface
             ->getOneOrNullResult()
         ;
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function refreshUser(UserInterface $user)
+    {
+        return $this->findByLogin($user->getUsername());
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function supportsClass(string $class)
+    {
+        return $class === User::class;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function loadUserByUsername(string $username): UserInterface
+    {
+        $user = $this->findByLogin($username);
+
+        if (!$user) {
+            throw new UserNotFoundException(sprintf('User with username %s was not found', $username));
+        }
+
+        return $user;
+    }
+
+    public function loadUserByIdentifier(string $identifier): ?UserInterface
+    {
+        return $this->loadUserByUsername($identifier);
+    }
+
 }
