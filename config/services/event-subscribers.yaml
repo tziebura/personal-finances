@@ -5,3 +5,4 @@ services:
         arguments:
             - '@app.user_repository'
             - '@app.user_balance_repository'
+        tags: [ 'kernel.event_subscriber' ]

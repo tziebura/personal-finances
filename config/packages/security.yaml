@@ -6,6 +6,10 @@ security:
         app_user_provider:
             id: app.user_repository
 
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -18,5 +22,6 @@ security:
                 path: app_logout
 
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/account, roles: ROLE_USER }
+         - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

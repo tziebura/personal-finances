@@ -50,7 +50,7 @@ class User implements UserInterface
 
     public function getRoles(): array
     {
-        return $this->roles;
+        return array_unique([...$this->roles, UserRole::ROLE_USER()->getValue()]);
     }
 
     public function getSalt()
@@ -68,5 +68,24 @@ class User implements UserInterface
     public function getUserIdentifier(): string
     {
         return $this->email;
+    }
+
+    public function addRole(UserRole $role): void
+    {
+        $roles = $this->roles;
+        $roles[] = $role->getValue();
+        $this->roles = array_unique($roles);
+    }
+
+    public function removeRole(UserRole $role): void
+    {
+        $roleIndex = array_search($role->getValue(), $this->roles);
+
+        if ($roleIndex === false) {
+            return;
+        }
+
+        unset($this->roles[$roleIndex]);
+        $this->roles = array_values($this->roles);
     }
 }

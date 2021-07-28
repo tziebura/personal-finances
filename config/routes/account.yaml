@@ -1,0 +1,3 @@
+#app_account_dashboard:
+#    path: /account
+#    controller: App\Controller\DashboardController::index

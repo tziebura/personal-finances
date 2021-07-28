@@ -4,6 +4,7 @@ imports:
     - { resource: services/security.yaml }
     - { resource: services/event-subscribers.yaml }
     - { resource: services/controllers.yaml }
+    - { resource: services/admin_controllers.yaml }
     - { resource: services/validators.yaml }
     - { resource: services/cli.yaml }
 
@@ -14,6 +15,7 @@ services:
     app.complex_user_password_encoder: '@App\Service\ComplexUserPasswordEncoder'
     app.user_registration_service: '@App\Service\UserRegistrationService'
     app.user_authentication_service: '@App\Service\UserAuthenticationService'
+    app.user_role_manager: '@App\Service\UserRoleManager'
 
     # SERVICE DEFINITIONS
     App\Service\UserFactory:
@@ -27,3 +29,5 @@ services:
 
     App\Service\UserAuthenticationService:
         arguments: [ '@app.complex_user_password_encoder' ]
+
+    App\Service\UserRoleManager: ~

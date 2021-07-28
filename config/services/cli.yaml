@@ -1,8 +1,20 @@
 parameters:
     app.parameters.create_user_command_name: 'app:user:create'
+    app.parameters.promote_user_command_name: 'app:user:promote'
+    app.parameters.demote_user_command_name: 'app:user:demote'
 
 services:
     App\Command\CreateUserCommand:
         arguments: [ '@app.user_registration_service', '@form.factory', '%app.parameters.create_user_command_name%' ]
         tags:
             - { name: 'console.command', command: '%app.parameters.create_user_command_name%' }
+
+    App\Command\PromoteUserCommand:
+        arguments: [ '@app.user_repository', '@app.user_role_manager', '%app.parameters.promote_user_command_name%' ]
+        tags:
+            - { name: 'console.command', command: '%app.parameters.promote_user_command_name%' }
+
+    App\Command\DemoteUserCommand:
+        arguments: [ '@app.user_repository', '@app.user_role_manager', '%app.parameters.demote_user_command_name%' ]
+        tags:
+            - { name: 'console.command', command: '%app.parameters.demote_user_command_name%' }

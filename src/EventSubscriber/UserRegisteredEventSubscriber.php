@@ -5,6 +5,7 @@ namespace App\EventSubscriber;
 
 
 use App\Entity\UserBalance;
+use App\Event\UserEvents;
 use App\Event\UserRegisteredEvent;
 use App\Repository\UserBalanceRepositoryInterface;
 use App\Repository\UserRepositoryInterface;
@@ -26,7 +27,7 @@ class UserRegisteredEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            UserRegisteredEvent::class => [
+            UserEvents::USER_REGISTERED_EVENT => [
                 'onUserRegisteredEvent'
             ]
         ];

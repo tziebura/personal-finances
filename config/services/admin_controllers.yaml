@@ -1,0 +1,5 @@
+services:
+    App\Controller\Admin\DashboardController:
+        calls:
+            - setContainer: ['@service_container']
+        tags: ['controller.service_arguments']
