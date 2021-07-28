@@ -22,9 +22,20 @@ class ComplexUserPasswordEncoderTest extends TestCase
     /**
      * @test
      */
+    public function shouldEncodePassword()
+    {
+        $expected = '$2y$05$c29tZV9yYW5kb21fc2Fsd.5wJQNPuog9BLUrAVlmgiX0JX1kKjFpC';
+        $this->subject->setSalt('some_random_salt_value');
+
+        $this->assertEquals($expected, $this->subject->encode('12345'));
+    }
+
+    /**
+     * @test
+     */
     public function shouldVerifyPasswordWhenPasswordsMatch()
     {
-        $hash = '$argon2i$v=19$m=65536,t=4,p=1$ZkZBMXluY0lML1Vqa1ZZYw$Uw8hXel29v3pnrdg09TP2F+p6HuYvdGu5JYlBLF1Ans';
+        $hash = '$2y$05$WsWs.9eQEs6Wvzncl11ZHOgadybQwXYFBv/eYz5I50H2D/POPzFY2';
         $password = '12345678';
 
         $this->assertTrue($this->subject->verify($password, $hash));
@@ -35,7 +46,7 @@ class ComplexUserPasswordEncoderTest extends TestCase
      */
     public function shouldNotVerifyPasswordWhenPasswordsMatch()
     {
-        $hash = '$argon2i$v=19$m=65536,t=4,p=1$ZkZBMXluY0lML1Vqa1ZZYw$Uw8hXel29v3pnrdg09TP2F+p6HuYvdGu5JYlBLF1Ans';
+        $hash = '$2y$05$WsWs.9eQEs6Wvzncl11ZHOgadybQwXYFBv/eYz5I50H2D/POPzFY2';
         $password = '12345679';
 
         $this->assertFalse($this->subject->verify($password, $hash));
