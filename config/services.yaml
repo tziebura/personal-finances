@@ -10,6 +10,18 @@ imports:
 
 services:
 
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+
     # ALIASES
     app.user_factory: '@App\Service\UserFactory'
     app.complex_user_password_encoder: '@App\Service\ComplexUserPasswordEncoder'

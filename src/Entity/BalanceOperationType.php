@@ -2,31 +2,30 @@
 
 namespace App\Entity;
 
+use DateTimeImmutable;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-class BalanceOperationType implements Translatable
+class BalanceOperationType
 {
+    use Timestamps;
+
     private UuidInterface $id;
     private string $title;
     private bool $income;
     private bool $necessary;
 
+    public function __toString(): string
+    {
+        return $this->title;
+    }
+
     public function __construct()
     {
         $this->id = Uuid::uuid4();
-    }
-
-    public function getTranslationType(): string
-    {
-        return self::class;
-    }
-
-    public function getValuesForTranslation(): array
-    {
-        return [
-            'title' => $this->getTitle(),
-        ];
+        $this->createdAt = new DateTimeImmutable();
+        $this->income = false;
+        $this->necessary = false;
     }
 
     public function getId(): UuidInterface

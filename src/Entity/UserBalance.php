@@ -16,7 +16,6 @@ class UserBalance
     private UuidInterface $id;
     private User $user;
     private string $_currentBalanceAmount;
-    private string $_currentBalanceCurrency;
     private Money $currentBalance;
 
     public function __construct(UuidInterface $id, User $user)
@@ -24,7 +23,6 @@ class UserBalance
         $this->id                      = $id;
         $this->user                    = $user;
         $this->_currentBalanceAmount   = 0;
-        $this->_currentBalanceCurrency = 'PLN';
         $this->createdAt               = new DateTimeImmutable();
     }
 
@@ -43,10 +41,35 @@ class UserBalance
         if (!isset($this->currentBalance)) {
             $this->currentBalance = new Money(
                 $this->_currentBalanceAmount,
-                new Currency($this->_currentBalanceCurrency)
+                new Currency('PLN')
             );
         }
 
         return $this->currentBalance;
+    }
+
+    public function addBalance(Money $money): void
+    {
+        $this->setCurrentBalance(
+            $this->currentBalance = $this->getCurrentBalance()->add($money)
+        );
+    }
+
+    public function subtractBalance(Money $money): void
+    {
+        $this->setCurrentBalance(
+            $this->getCurrentBalance()->subtract($money)
+        );
+    }
+
+    public function onUpdate()
+    {
+        $this->updatedAt = new DateTimeImmutable();
+    }
+
+    protected function setCurrentBalance(Money $money): void
+    {
+        $this->currentBalance = $money;
+        $this->_currentBalanceAmount = $money->getAmount();
     }
 }

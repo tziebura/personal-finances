@@ -4,17 +4,16 @@
                   xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Entity\UserBalance" table="user_balances">
-        <one-to-one field="user" target-entity="App\Entity\User">
-            <join-column name="user_id" referenced-column-name="id" on-delete="CASCADE" on-update="CASCADE"/>
-        </one-to-one>
+    <entity name="App\Entity\BalanceOperationType" table="balance_operation_types">
 
         <lifecycle-callbacks>
             <lifecycle-callback type="preUpdate" method="onUpdate"/>
         </lifecycle-callbacks>
 
         <id name="id" type="uuid" column="id" />
-        <field name="_currentBalanceAmount" column="current_balance_amount" type="string" length="199" />
+        <field name="title" type="string" length="199" />
+        <field name="income" type="boolean" />
+        <field name="necessary" type="boolean" />
         <field name="createdAt" type="datetime_immutable" />
         <field name="updatedAt" type="datetime_immutable" nullable="true" />
 

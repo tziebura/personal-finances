@@ -1,0 +1,5 @@
+{% if field.value.income %}
+    <span class="badge badge-success">+{{ (field.value.money.amount / 100)|number_format(2, '.', ',') }} {{ field.value.money.currency }}</span>
+{% else %}
+    <span class="badge badge-danger">-{{ (field.value.money.amount / 100)|number_format(2, '.', ',') }} {{ field.value.money.currency }}</span>
+{% endif %}
